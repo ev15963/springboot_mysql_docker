@@ -1,0 +1,19 @@
+version: "3"
+services:
+  mysqldb:
+    image: mysql
+    environment:
+      MYSQL_DATABASE: testdb
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_ROOT_HOST: '%'
+    ports:
+      - 3306:3306
+
+  test_webserver:
+    build: .
+    ports:
+      - 8080:8080
+    depends_on:
+      - mysqldb
+    links:
+      - mysqldb
